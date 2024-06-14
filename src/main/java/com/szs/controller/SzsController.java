@@ -26,9 +26,7 @@ public class SzsController {
 
     @PostMapping("/signup")
     @Operation(summary = "회원가입", description = "회원가입 API")
-    public ResponseEntity<String> signUp(
-            @RequestBody SignUpDto signUpDto
-    ) {
+    public ResponseEntity<String> signUp(@RequestBody SignUpDto signUpDto) {
         return ResponseEntity.ok(szsService.signUp(signUpDto));
     }
 

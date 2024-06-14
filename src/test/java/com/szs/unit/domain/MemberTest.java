@@ -8,7 +8,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 
-@DisplayName("[단위테스트] member")
+@DisplayName("[단위테스트] Member")
 public class MemberTest {
 
 
@@ -37,4 +37,5 @@ public class MemberTest {
             Member.of(userId, password, name, regNo);
         });
     }
+
 }

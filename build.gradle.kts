@@ -47,8 +47,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("com.h2database:h2")
     testImplementation("io.mockk:mockk:1.13.2")
-    testImplementation("io.rest-assured:spring-mock-mvc:5.3.0")
-    testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
+    testImplementation("org.mockito:mockito-core:2.1.0")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 
 

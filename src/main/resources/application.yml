@@ -1,4 +1,3 @@
-
 spring:
   h2:
     console:
@@ -21,7 +20,6 @@ spring:
     open-in-view: false
 
 
-
 springdoc:
   packages-to-scan: com.szs
   default-consumes-media-type: application/json;charset=UTF-8
@@ -31,3 +29,8 @@ springdoc:
     disable-swagger-default-url: true
     display-request-duration: true
     operations-sorter: alpha
+
+
+token:
+  secret: open
+  accessTokenExpiredIn: 30

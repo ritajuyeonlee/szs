@@ -31,4 +31,12 @@ public class SzsController {
     }
 
 
+
+/*
+    @PostMapping("/scrap")
+    @Operation(summary = "스크래핑", description = "스크래핑 API")
+    public ResponseEntity<ScrapResponseDto> scrap(@RequestBody SignUpRequestDto signUpRequestDto) {
+        return ResponseEntity.ok(szsService.scrap(signUpRequestDto));
+    }*/
+
 }

@@ -1,9 +1,11 @@
 package com.szs.domain;
 
+import com.szs.dto.response.MemberDetails;
 import com.szs.exception.InvalidInformationException;
 import com.szs.exception.RequiredInformationBlankException;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import org.springframework.security.core.userdetails.UserDetails;
 
 
 @Entity
@@ -35,6 +37,11 @@ public class Member {
         } else {
           throw new InvalidInformationException();
         }
+
+    }
+
+    public UserDetails toMemberDetails(){
+        return new MemberDetails(userId,password, "USER","email",true,true,true,true);
 
     }
 

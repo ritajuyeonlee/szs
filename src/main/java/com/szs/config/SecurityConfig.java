@@ -1,21 +1,19 @@
 package com.szs.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.szs.domain.MemberRepository;
 import com.szs.filter.JWTAuthenticationFilter;
 import com.szs.filter.JWTAuthorizationFilter;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -31,6 +29,8 @@ public class SecurityConfig {
     public SecurityFilterChain getSecurityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf().disable()
                 .cors()
+                .and()
+                .headers().frameOptions().disable()
                 .and()
                 .apply(new MyCustomDsl()) // 커스텀 필터 등록
                 .and()
@@ -64,7 +64,7 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
@@ -77,8 +77,9 @@ public class SecurityConfig {
         @Override
         public void configure(HttpSecurity http) throws Exception {
             AuthenticationManager authenticationManager = http.getSharedObject(AuthenticationManager.class);
-            http.addFilterBefore(new JWTAuthenticationFilter(authenticationManager), UsernamePasswordAuthenticationFilter.class)
-                    .addFilter(new JWTAuthorizationFilter(authenticationManager, memberRepository));
+            ObjectMapper objectMapper = new ObjectMapper();
+            http.addFilterBefore(new JWTAuthenticationFilter(authenticationManager, objectMapper), UsernamePasswordAuthenticationFilter.class)
+                    .addFilterAfter(new JWTAuthorizationFilter(authenticationManager, memberRepository), UsernamePasswordAuthenticationFilter.class);
         }
     }
 

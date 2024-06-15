@@ -3,7 +3,9 @@ package com.szs.filter;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.szs.config.TokenConfig;
+import com.szs.dto.request.LogInRequestDto;
 import com.szs.dto.response.MemberDetails;
 import com.szs.dto.response.TokenResponseDto;
 import com.szs.service.SecurityResponseService;
@@ -24,10 +26,12 @@ import java.util.Date;
 public class JWTAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 
     private final AuthenticationManager authenticationManager;
+    private final ObjectMapper objectMapper;
 
     public JWTAuthenticationFilter(
-            AuthenticationManager authenticationManager) {
+            AuthenticationManager authenticationManager, ObjectMapper objectMapper) {
         super("/szs/login");
+        this.objectMapper = objectMapper;
         setAuthenticationManager(authenticationManager);
         this.authenticationManager = authenticationManager;
     }
@@ -35,11 +39,11 @@ public class JWTAuthenticationFilter extends AbstractAuthenticationProcessingFil
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
-            throws AuthenticationException {
+            throws AuthenticationException, IOException {
 
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
+        LogInRequestDto logInRequestDto = objectMapper.readValue(request.getInputStream(), LogInRequestDto.class);
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
+                logInRequestDto.getUserId(), logInRequestDto.getPassword());
         return authenticationManager.authenticate(token);
     }
 
@@ -56,7 +60,7 @@ public class JWTAuthenticationFilter extends AbstractAuthenticationProcessingFil
 
         response.addHeader("Authorization", "Bearer " + jwtToken);
 
-        TokenResponseDto token = new TokenResponseDto("Bearer " + jwtToken);
+        TokenResponseDto token = new TokenResponseDto(jwtToken);
         SecurityResponseService.printResponse(token, response);
 
     }

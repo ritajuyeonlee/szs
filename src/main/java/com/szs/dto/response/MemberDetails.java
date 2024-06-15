@@ -11,37 +11,21 @@ public class MemberDetails extends User {
 
     private MemberDetails(
             String userId,
-            String email,
             String password,
-            boolean enabled,
-            boolean accountNonExpired,
-            boolean credentialsNonExpired,
-            boolean accountNonLocked,
             List<SimpleGrantedAuthority> authorities
     ) {
-        super(email, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
+        super(userId, password, authorities);
         this.userId = userId;
     }
 
     public MemberDetails(
             String userId,
-            String password,
-            String role,
-            String email,
-            boolean enabled,
-            boolean accountNonExpired,
-            boolean credentialsNonExpired,
-            boolean accountNonLocked
+            String password
     ) {
         this(
                 userId,
                 password,
-                email,
-                enabled,
-                accountNonExpired,
-                credentialsNonExpired,
-                accountNonLocked,
-                List.of(new SimpleGrantedAuthority("ROLE_" + role))
+                List.of(new SimpleGrantedAuthority("ROLE_"))
         );
     }
 

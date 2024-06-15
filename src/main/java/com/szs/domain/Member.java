@@ -6,6 +6,7 @@ import com.szs.exception.RequiredInformationBlankException;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 @Entity
@@ -35,13 +36,13 @@ public class Member {
         ) {
             return new Member(userId, password, name, regNo);
         } else {
-          throw new InvalidInformationException();
+            throw new InvalidInformationException();
         }
 
     }
 
-    public UserDetails toMemberDetails(){
-        return new MemberDetails(userId,password, "USER","email",true,true,true,true);
+    public UserDetails toMemberDetails() {
+        return new MemberDetails(userId, password);
 
     }
 
@@ -53,6 +54,15 @@ public class Member {
         this.regNo = regNo;
     }
 
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Member withEncodePassword(PasswordEncoder passwordEncoder) {
+        password = passwordEncoder.encode(password);
+        return this;
+    }
 
     public String getUserId() {
         return userId;

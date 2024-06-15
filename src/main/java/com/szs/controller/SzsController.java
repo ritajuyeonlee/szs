@@ -31,6 +31,15 @@ public class SzsController {
     }
 
 
+/*
+    @PostMapping("/login")
+    @Operation(summary = "로그인", description = "로그인 API")
+    public ResponseEntity<String> login(@RequestBody LogInRequestDto logInRequestDto) {
+        return ResponseEntity.ok(szsService.logIn(logInRequestDto));
+    }
+
+*/
+
 
 /*
     @PostMapping("/scrap")

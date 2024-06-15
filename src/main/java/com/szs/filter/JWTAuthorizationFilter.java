@@ -43,9 +43,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
             if (userId != null) {
                 Member member = memberRepository.findById(userId).orElseThrow();
-
-                Authentication authentication = new UsernamePasswordAuthenticationToken(userId, null);
-
+                Authentication authentication = new UsernamePasswordAuthenticationToken(member.getUserId(), null);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         }

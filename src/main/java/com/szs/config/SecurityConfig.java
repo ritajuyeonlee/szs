@@ -31,8 +31,8 @@ public class SecurityConfig {
                 .cors()
                 .and()
                 .headers().frameOptions().disable()
-                .and()
-                .apply(new MyCustomDsl()) // 커스텀 필터 등록
+//                .and()
+//                .apply(new MyCustomDsl()) // 커스텀 필터 등록
                 .and()
                 .httpBasic().disable()
                 .formLogin().disable()

@@ -1,7 +1,7 @@
 package com.szs.controller;
 
 
-import com.szs.dto.SignUpDto;
+import com.szs.dto.request.SignUpRequestDto;
 import com.szs.service.SzsService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +26,8 @@ public class SzsController {
 
     @PostMapping("/signup")
     @Operation(summary = "회원가입", description = "회원가입 API")
-    public ResponseEntity<String> signUp(@RequestBody SignUpDto signUpDto) {
-        return ResponseEntity.ok(szsService.signUp(signUpDto));
+    public ResponseEntity<String> signUp(@RequestBody SignUpRequestDto signUpRequestDto) {
+        return ResponseEntity.ok(szsService.signUp(signUpRequestDto));
     }
 
 

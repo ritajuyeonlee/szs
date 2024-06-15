@@ -1,9 +1,7 @@
 package com.szs.controller;
 
 
-import com.szs.dto.request.LogInRequestDto;
 import com.szs.dto.request.SignUpRequestDto;
-import com.szs.dto.response.LogInResponseDto;
 import com.szs.service.SzsService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,12 +30,12 @@ public class SzsController {
         return ResponseEntity.ok(szsService.signUp(signUpRequestDto));
     }
 
-
-    @PostMapping("/login")
-    @Operation(summary = "로그인", description = "로그인 API")
-    public ResponseEntity<LogInResponseDto> login(@RequestBody LogInRequestDto logInRequestDto) {
-        return ResponseEntity.ok(szsService.logIn(logInRequestDto));
-    }
+//
+//    @PostMapping("/login")
+//    @Operation(summary = "로그인", description = "로그인 API")
+//    public ResponseEntity<LogInResponseDto> login(@RequestBody LogInRequestDto logInRequestDto) {
+//        return ResponseEntity.ok(szsService.logIn(logInRequestDto));
+//    }
 
 
 

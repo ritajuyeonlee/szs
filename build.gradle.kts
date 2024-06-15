@@ -29,8 +29,8 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
     implementation("jakarta.validation:jakarta.validation-api:3.0.2")
 
+    runtimeOnly("com.h2database:h2")
 
-    // JWT
     implementation("io.jsonwebtoken:jjwt-api:0.11.2")
     runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.2")
     runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.2")
@@ -38,15 +38,9 @@ dependencies {
 
     implementation("com.google.code.gson:gson:2.8.9")
 
-
+    implementation ("org.jsoup:jsoup:1.15.3")
 
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2")
-
-    implementation ("org.seleniumhq.selenium:selenium-java")
-
-
-
-    runtimeOnly("com.h2database:h2")
 
     testImplementation("com.h2database:h2")
     testImplementation("io.mockk:mockk:1.13.2")

@@ -3,7 +3,6 @@ package com.szs.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.szs.domain.MemberRepository;
 import com.szs.filter.JWTAuthenticationFilter;
-import com.szs.filter.JWTAuthorizationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,8 +30,8 @@ public class SecurityConfig {
                 .cors()
                 .and()
                 .headers().frameOptions().disable()
-//                .and()
-//                .apply(new MyCustomDsl()) // 커스텀 필터 등록
+                .and()
+                .apply(new MyCustomDsl()) // 커스텀 필터 등록
                 .and()
                 .httpBasic().disable()
                 .formLogin().disable()
@@ -78,8 +77,7 @@ public class SecurityConfig {
         public void configure(HttpSecurity http) throws Exception {
             AuthenticationManager authenticationManager = http.getSharedObject(AuthenticationManager.class);
             ObjectMapper objectMapper = new ObjectMapper();
-            http.addFilterBefore(new JWTAuthenticationFilter(authenticationManager, objectMapper), UsernamePasswordAuthenticationFilter.class)
-                    .addFilterAfter(new JWTAuthorizationFilter(authenticationManager, memberRepository), UsernamePasswordAuthenticationFilter.class);
+            http.addFilterBefore(new JWTAuthenticationFilter(authenticationManager, objectMapper), UsernamePasswordAuthenticationFilter.class);
         }
     }
 

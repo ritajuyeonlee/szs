@@ -1,4 +1,4 @@
-package com.szs.dto.request;
+package com.szs.domain.tax.dto.request;
 
 public class ScrapRequestDto {
     private final String name ="동탁";

@@ -1,6 +1,6 @@
-package com.szs.domain;
+package com.szs.domain.member;
 
-import com.szs.dto.response.MemberDetails;
+import com.szs.domain.member.dto.MemberDetails;
 import com.szs.exception.InvalidInformationException;
 import com.szs.exception.RequiredInformationBlankException;
 import jakarta.persistence.Entity;

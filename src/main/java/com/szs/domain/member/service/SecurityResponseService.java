@@ -1,4 +1,4 @@
-package com.szs.service;
+package com.szs.domain.member.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletResponse;

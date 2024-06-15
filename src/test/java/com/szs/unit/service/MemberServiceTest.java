@@ -1,4 +1,4 @@
 package com.szs.unit.service;
 
-public class SzsServiceTest {
+public class MemberServiceTest {
 }

@@ -1,6 +1,6 @@
-package com.szs.service;
+package com.szs.domain.member.service;
 
-import com.szs.domain.MemberRepository;
+import com.szs.domain.member.MemberRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

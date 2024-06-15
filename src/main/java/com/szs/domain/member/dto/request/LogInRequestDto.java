@@ -1,4 +1,4 @@
-package com.szs.dto.request;
+package com.szs.domain.member.dto.request;
 
 public class LogInRequestDto {
     private String userId;

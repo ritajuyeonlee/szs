@@ -1,6 +1,6 @@
-package com.szs.dto.request;
+package com.szs.domain.member.dto.request;
 
-import com.szs.domain.Member;
+import com.szs.domain.member.Member;
 
 public class SignUpRequestDto {
     private String userId;

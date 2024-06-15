@@ -1,8 +1,8 @@
 package com.szs.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.szs.domain.MemberRepository;
-import com.szs.filter.JWTAuthenticationFilter;
+import com.szs.domain.member.MemberRepository;
+import com.szs.domain.member.filter.JWTAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -72,7 +72,7 @@ public class SecurityConfig {
     }
 
 
-    public class MyCustomDsl extends AbstractHttpConfigurer<MyCustomDsl, HttpSecurity> {
+    public static class MyCustomDsl extends AbstractHttpConfigurer<MyCustomDsl, HttpSecurity> {
         @Override
         public void configure(HttpSecurity http) throws Exception {
             AuthenticationManager authenticationManager = http.getSharedObject(AuthenticationManager.class);

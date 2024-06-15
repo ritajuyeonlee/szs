@@ -1,4 +1,4 @@
-package com.szs.dto.response;
+package com.szs.domain.member.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

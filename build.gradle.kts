@@ -27,7 +27,10 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
+
     implementation("jakarta.validation:jakarta.validation-api:3.0.2")
+    implementation("org.hibernate:hibernate-validator:6.1.0.Final")
+
 
     runtimeOnly("com.h2database:h2")
 
@@ -42,10 +45,12 @@ dependencies {
 
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2")
 
+    testImplementation("org.assertj:assertj-core:3.22.0")
     testImplementation("com.h2database:h2")
     testImplementation("io.mockk:mockk:1.13.2")
     testImplementation("org.mockito:mockito-core:2.1.0")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation ("org.springframework.security:spring-security-test")
 
 
 

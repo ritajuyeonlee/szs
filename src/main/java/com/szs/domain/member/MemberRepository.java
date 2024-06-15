@@ -1,4 +1,4 @@
-package com.szs.domain;
+package com.szs.domain.member;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

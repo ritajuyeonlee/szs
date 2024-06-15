@@ -1,14 +1,14 @@
-package com.szs.filter;
+package com.szs.domain.member.filter;
 
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.szs.config.TokenConfig;
-import com.szs.dto.request.LogInRequestDto;
-import com.szs.dto.response.MemberDetails;
-import com.szs.dto.response.TokenResponseDto;
-import com.szs.service.SecurityResponseService;
+import com.szs.domain.member.dto.MemberDetails;
+import com.szs.domain.member.dto.request.LogInRequestDto;
+import com.szs.domain.member.dto.response.TokenResponseDto;
+import com.szs.domain.member.service.SecurityResponseService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

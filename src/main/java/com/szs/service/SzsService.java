@@ -2,9 +2,7 @@ package com.szs.service;
 
 import com.szs.domain.Member;
 import com.szs.domain.MemberRepository;
-import com.szs.dto.request.LogInRequestDto;
 import com.szs.dto.request.SignUpRequestDto;
-import com.szs.exception.InvalidInformationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,17 +24,18 @@ public class SzsService {
         return member.getUserId();
     }
 
-    @Transactional
-    public String logIn(LogInRequestDto logInRequestDto) {
+//    @Transactional
+//    public String logIn(LogInRequestDto logInRequestDto) {
+//
+//        Member member = memberRepository.findById(logInRequestDto.getUserId()).orElseThrow(InvalidInformationException::new);
+//        if (!passwordEncoder.matches(logInRequestDto.getPassword(), member.getPassword())) {
+//            throw new InvalidInformationException();
+//
+//            String token = JwtTokenUtil.generateToken(userName, secretKey, expireTimeMs);
+//
+//
+//        }
+//    }
 
-        Member member = memberRepository.findById(logInRequestDto.getUserId()).orElseThrow(InvalidInformationException::new);
-        if (!passwordEncoder.matches(logInRequestDto.getPassword(), member.getPassword())) {
-            throw new InvalidInformationException();
 
-            String token = JwtTokenUtil.generateToken(userName, secretKey, expireTimeMs);
-
-
-        }
-
-
-    }
+}

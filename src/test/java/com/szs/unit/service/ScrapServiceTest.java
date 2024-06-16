@@ -1,7 +1,7 @@
 package com.szs.unit.service;
 
 import com.szs.domain.member.service.MemberService;
-import com.szs.domain.scrap.ScrapResponseDto;
+import com.szs.domain.scrap.dto.ScrapResponseDto;
 import com.szs.domain.scrap.service.ScrapService;
 import com.szs.utils.ScrapUtils;
 import org.junit.jupiter.api.DisplayName;

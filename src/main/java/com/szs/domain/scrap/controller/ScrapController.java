@@ -1,6 +1,6 @@
 package com.szs.domain.scrap.controller;
 
-import com.szs.domain.scrap.ScrapResponseDto;
+import com.szs.domain.scrap.dto.ScrapResponseDto;
 import com.szs.domain.scrap.service.ScrapService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.ResponseEntity;

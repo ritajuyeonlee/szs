@@ -1,4 +1,4 @@
-package com.szs.domain.scrap;
+package com.szs.domain.scrap.dto;
 
 import com.szs.domain.member.dto.response.UpdateTaxRequestDto;
 

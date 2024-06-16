@@ -1,7 +1,7 @@
 package com.szs.domain.scrap.service;
 
 import com.szs.domain.member.service.MemberService;
-import com.szs.domain.scrap.ScrapResponseDto;
+import com.szs.domain.scrap.dto.ScrapResponseDto;
 import com.szs.utils.ScrapUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

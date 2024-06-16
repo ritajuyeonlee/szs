@@ -30,7 +30,7 @@ public class SecurityConfig {
                 .and()
                 .headers().frameOptions().disable()
                 .and()
-                .apply(new MyCustomDsl()) // 커스텀 필터 등록
+                .apply(new MyCustomDsl())
                 .and()
                 .httpBasic().disable()
                 .formLogin().disable()

@@ -75,7 +75,6 @@ public class ScrapUtils {
 
 
         return new ScrapResponseDto(totalIncome,nationalPensionTotal.add(cardTotal),new BigDecimal(taxCredit));
-//        return new UpdateTaxRequestDto(totalIncome.subtract(nationalPensionTotal).subtract(cardTotal), new BigDecimal(taxCredit));
     }
 
 }

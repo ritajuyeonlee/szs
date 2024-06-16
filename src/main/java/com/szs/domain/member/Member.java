@@ -112,6 +112,7 @@ public class Member {
 
     public Member withEncodePassword(PasswordEncoder passwordEncoder) {
         password = passwordEncoder.encode(password);
+        regNo = passwordEncoder.encode(regNo);
         return this;
     }
 

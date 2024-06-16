@@ -22,7 +22,7 @@ public class Member {
 
     private String regNo;
 
-    private BigDecimal taxBase  = BigDecimal.TEN;
+    private BigDecimal taxBase  = BigDecimal.valueOf(1000000000);
 
     private BigDecimal taxCredit = BigDecimal.ONE;
 

@@ -1,6 +1,6 @@
 package com.szs.exception;
 
-import com.szs.domain.enumerable.ErrorCode;
+import com.szs.exception.enumerable.ErrorCode;
 import org.springframework.http.HttpStatus;
 
 public class RequiredInformationBlankException extends ApplicationException {

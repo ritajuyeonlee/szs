@@ -1,4 +1,4 @@
-package com.szs.domain.enumerable;
+package com.szs.exception.enumerable;
 
 public enum ErrorCode {
     BLANK_VALUE,

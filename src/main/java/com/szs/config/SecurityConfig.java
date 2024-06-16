@@ -1,9 +1,8 @@
 package com.szs.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.szs.domain.member.MemberRepository;
 import com.szs.domain.member.filter.JWTAuthenticationFilter;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.szs.domain.member.filter.JWTAuthorizationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -36,16 +35,13 @@ public class SecurityConfig {
                 .httpBasic().disable()
                 .formLogin().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/","/szs/**").permitAll()
+                .requestMatchers("/", "/szs/login", "/szs/signup").permitAll()
                 .anyRequest().permitAll()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().logout().clearAuthentication(true).invalidateHttpSession(true).deleteCookies();
 
         return httpSecurity.build();
     }
-
-    @Autowired
-    private MemberRepository memberRepository;
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
@@ -77,7 +73,8 @@ public class SecurityConfig {
         public void configure(HttpSecurity http) throws Exception {
             AuthenticationManager authenticationManager = http.getSharedObject(AuthenticationManager.class);
             ObjectMapper objectMapper = new ObjectMapper();
-            http.addFilterBefore(new JWTAuthenticationFilter(authenticationManager, objectMapper), UsernamePasswordAuthenticationFilter.class);
+            http.addFilterBefore(new JWTAuthenticationFilter(authenticationManager, objectMapper), UsernamePasswordAuthenticationFilter.class)
+                    .addFilter(new JWTAuthorizationFilter(authenticationManager));
         }
     }
 

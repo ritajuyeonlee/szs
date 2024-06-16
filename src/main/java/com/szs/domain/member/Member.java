@@ -8,14 +8,24 @@ import jakarta.persistence.Id;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.math.BigDecimal;
+
 
 @Entity
 public class Member {
     @Id
     private String userId;
+
     private String password;
+
     private String name;
+
     private String regNo;
+
+    private BigDecimal taxBase  = BigDecimal.TEN;
+
+    private BigDecimal taxCredit = BigDecimal.ONE;
+
 
     public Member() {
     }
@@ -44,6 +54,41 @@ public class Member {
     public UserDetails toMemberDetails() {
         return new MemberDetails(userId, password);
 
+    }
+
+    private BigDecimal tax(Double min, Double percent, Double additional) {
+        return taxBase
+                .subtract(BigDecimal.valueOf(min))
+                .multiply(BigDecimal.valueOf(percent))
+                .add(BigDecimal.valueOf(additional))
+                .subtract(taxCredit);
+
+    }
+
+    public BigDecimal getRefund() {
+        if (taxBase.compareTo(BigDecimal.valueOf(140000)) <= 0) {
+            return taxBase.multiply(BigDecimal.valueOf(0.06)).subtract(taxCredit);
+        } else if (taxBase.compareTo(BigDecimal.valueOf(14000000)) > 0 && taxBase.compareTo(BigDecimal.valueOf(50000000)) <= 0) {
+            return tax(14000000.0, 0.15, 840000.0);
+
+        } else if (taxBase.compareTo(BigDecimal.valueOf(50000000)) > 0 && taxBase.compareTo(BigDecimal.valueOf(88000000)) <= 0) {
+            return tax(50000000.0, 0.24, 6240000.0);
+
+        } else if (taxBase.compareTo(BigDecimal.valueOf(88000000)) > 0 && taxBase.compareTo(BigDecimal.valueOf(150000000)) <= 0) {
+            return tax(88000000.0, 0.35, 15360000.0);
+
+        } else if (taxBase.compareTo(BigDecimal.valueOf(150000000)) > 0 && taxBase.compareTo(BigDecimal.valueOf(300000000)) <= 0) {
+            return tax(150000000.0, 0.38, 37060000.0);
+
+        } else if (taxBase.compareTo(BigDecimal.valueOf(300000000)) > 0 && taxBase.compareTo(BigDecimal.valueOf(500000000)) <= 0) {
+            return tax(300000000.0, 0.4, 94060000.0);
+
+        } else if (taxBase.compareTo(BigDecimal.valueOf(500000000)) > 0 && taxBase.compareTo(BigDecimal.valueOf(1000000000)) <= 0) {
+            return tax(500000000.0, 0.42, 174060000.0);
+
+        } else {
+            return tax(1000000000.0, 0.45, 384060000.0);
+        }
     }
 
 

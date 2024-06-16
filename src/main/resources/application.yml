@@ -33,4 +33,4 @@ springdoc:
 
 token:
   secret: open
-  accessTokenExpiredIn: 30
+  accessTokenExpiredIn: 99999999999

@@ -41,18 +41,15 @@ dependencies {
 
     implementation("com.google.code.gson:gson:2.8.9")
 
-    implementation ("org.jsoup:jsoup:1.15.3")
+    implementation("org.jsoup:jsoup:1.15.3")
 
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2")
 
-    testImplementation("org.assertj:assertj-core:3.22.0")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
+    testImplementation("org.assertj:assertj-core:3.25.3")
     testImplementation("com.h2database:h2")
-    testImplementation("io.mockk:mockk:1.13.2")
-    testImplementation("org.mockito:mockito-core:2.1.0")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation ("org.springframework.security:spring-security-test")
-
-
+    testImplementation("org.springframework.security:spring-security-test")
 
 
 }

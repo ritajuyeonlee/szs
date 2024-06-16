@@ -1,4 +1,4 @@
-package com.szs.domain.member.dto;
+package com.szs.domain.authentication.dto;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;

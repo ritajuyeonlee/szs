@@ -13,8 +13,8 @@ public class MemberTest {
 
 
     @Test
-    @DisplayName("필수 값이 비었을 경우")
-    void RequiredInformationBlankTest() {
+    @DisplayName("필수 값이 Blank일 경우")
+    void given_Blank_when_CreateValue_then_ThrowException() {
         String userId = " ";
         String password = " ";
         String name = " ";
@@ -27,7 +27,7 @@ public class MemberTest {
 
     @Test
     @DisplayName("주어진 회원정보가 아닐 경우")
-    void InvalidInformationTest() {
+    void given_InvalidInformation_when_CreateValue_then_ThrowException() {
         String userId = "id";
         String password = "password";
         String name = "jake";

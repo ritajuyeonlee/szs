@@ -1,8 +1,8 @@
 package com.szs.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.szs.domain.member.filter.JWTAuthenticationFilter;
-import com.szs.domain.member.filter.JWTAuthorizationFilter;
+import com.szs.domain.authentication.filter.JWTAuthenticationFilter;
+import com.szs.domain.authentication.filter.JWTAuthorizationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

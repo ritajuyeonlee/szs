@@ -1,4 +1,4 @@
-package com.szs.domain.member.filter;
+package com.szs.domain.authentication.filter;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -30,7 +30,6 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
         String header = request.getHeader(headerString);
         if (header != null && header.startsWith(prefix)) {
-            System.out.println("header : " + header);
             String token = request.getHeader(headerString)
                     .replace(prefix, "");
 

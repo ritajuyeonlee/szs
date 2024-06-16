@@ -1,15 +1,15 @@
 package com.szs.utils;
 
+import org.springframework.stereotype.Component;
+
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
-public class NumberUtils {
+@Component
+public class FormatUtils {
 
-    public static String bigDecimalFormatting(BigDecimal number) {
+    public String bigDecimalFormatting(BigDecimal number) {
         DecimalFormat format = new DecimalFormat("###,###,###");
         return format.format(number);
-
     }
-
-
 }

@@ -1,14 +1,14 @@
-package com.szs.domain.member.filter;
+package com.szs.domain.authentication.filter;
 
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.szs.config.TokenConfig;
-import com.szs.domain.member.dto.MemberDetails;
+import com.szs.domain.authentication.dto.MemberDetails;
+import com.szs.domain.authentication.dto.TokenDto;
+import com.szs.domain.authentication.service.SecurityResponseService;
 import com.szs.domain.member.dto.request.LogInRequestDto;
-import com.szs.domain.member.dto.response.TokenResponseDto;
-import com.szs.domain.member.service.SecurityResponseService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -60,7 +60,7 @@ public class JWTAuthenticationFilter extends AbstractAuthenticationProcessingFil
 
         response.addHeader("Authorization", "Bearer " + jwtToken);
 
-        TokenResponseDto token = new TokenResponseDto(jwtToken);
+        TokenDto token = new TokenDto(jwtToken);
         SecurityResponseService.printResponse(token, response);
 
     }

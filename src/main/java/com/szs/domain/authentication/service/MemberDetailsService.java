@@ -1,4 +1,4 @@
-package com.szs.domain.member.service;
+package com.szs.domain.authentication.service;
 
 import com.szs.domain.member.MemberRepository;
 import org.springframework.security.core.userdetails.UserDetails;

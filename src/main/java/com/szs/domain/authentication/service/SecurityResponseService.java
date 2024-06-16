@@ -1,4 +1,4 @@
-package com.szs.domain.member.service;
+package com.szs.domain.authentication.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletResponse;

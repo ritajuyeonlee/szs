@@ -1,15 +1,14 @@
-package com.szs.domain.member.dto.response;
+package com.szs.domain.authentication.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class TokenResponseDto {
+public class TokenDto {
 
     @JsonProperty
      String accessToken;
 
-    public TokenResponseDto(String accessToken){
+    public TokenDto(String accessToken){
         this.accessToken = accessToken;
     }
-
 
 }

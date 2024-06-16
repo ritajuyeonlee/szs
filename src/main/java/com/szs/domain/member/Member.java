@@ -1,30 +1,39 @@
 package com.szs.domain.member;
 
-import com.szs.domain.member.dto.MemberDetails;
+import com.szs.domain.authentication.dto.MemberDetails;
+import com.szs.domain.member.dto.response.UpdateTaxRequestDto;
 import com.szs.exception.InvalidInformationException;
 import com.szs.exception.RequiredInformationBlankException;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import org.hibernate.annotations.Comment;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 
 @Entity
 public class Member {
     @Id
+    @Comment(value = "사용자 ID")
     private String userId;
 
+    @Comment(value = "비밀번호")
     private String password;
 
+    @Comment(value = "이름")
     private String name;
 
+    @Comment(value = "주민등록번호")
     private String regNo;
 
-    private BigDecimal taxBase  = BigDecimal.valueOf(1000000000);
+    @Comment(value = "과세표준")
+    private BigDecimal taxBase;
 
-    private BigDecimal taxCredit = BigDecimal.ONE;
+    @Comment(value = "세액공제")
+    private BigDecimal taxCredit;
 
 
     public Member() {
@@ -61,7 +70,9 @@ public class Member {
                 .subtract(BigDecimal.valueOf(min))
                 .multiply(BigDecimal.valueOf(percent))
                 .add(BigDecimal.valueOf(additional))
-                .subtract(taxCredit);
+                .subtract(taxCredit)
+                .setScale(0, RoundingMode.HALF_UP)
+                ;
 
     }
 
@@ -95,13 +106,8 @@ public class Member {
     public Member(String userId, String password, String name, String regNo) {
         this.userId = userId;
         this.password = password;
-        this.name = (name == null || name.trim().isEmpty()) ? "Unknown" : name;
+        this.name = name;
         this.regNo = regNo;
-    }
-
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public Member withEncodePassword(PasswordEncoder passwordEncoder) {
@@ -129,5 +135,9 @@ public class Member {
     }
 
 
+    public void updateTax(UpdateTaxRequestDto updateTaxRequestDto) {
+        this.taxBase = updateTaxRequestDto.taxBase();
+        this.taxCredit = updateTaxRequestDto.taxCredit();
+    }
 }
 

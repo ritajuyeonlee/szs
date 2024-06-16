@@ -2,21 +2,19 @@ package com.szs.domain.member.controller;
 
 
 import com.szs.domain.member.dto.request.SignUpRequestDto;
-import com.szs.domain.member.dto.response.RefundResponseDto;
+import com.szs.domain.member.dto.response.GetRefundResponseDto;
 import com.szs.domain.member.service.MemberService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
-
 
 @RestController
 @RequestMapping("/szs")
 public class MemberController {
 
-    private MemberService memberService;
+    private final MemberService memberService;
 
     @Autowired
     public MemberController(MemberService memberService) {
@@ -32,16 +30,11 @@ public class MemberController {
 
     @GetMapping("/refund")
     @Operation(summary = "결정세액조회", description = "결정세액조회 API")
-    public ResponseEntity<RefundResponseDto> getRefund() {
+    public ResponseEntity<GetRefundResponseDto> getRefund() {
         return ResponseEntity.ok(memberService.getRefund());
     }
 
 
-    @PostMapping("/scrap")
-    @Operation(summary = "스크래핑", description = "스크래핑 API")
-    public void scrap() throws IOException {
-        memberService.getScrap();
-    }
 
 
 }

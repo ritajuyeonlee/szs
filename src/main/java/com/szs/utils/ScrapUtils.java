@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.szs.domain.member.dto.response.UpdateTaxRequestDto;
+import com.szs.domain.scrap.ScrapResponseDto;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.springframework.stereotype.Component;
@@ -16,7 +16,7 @@ import java.util.Set;
 @Component
 public class ScrapUtils {
 
-    public UpdateTaxRequestDto szsScrap() throws IOException {
+    public ScrapResponseDto szsScrap() throws IOException {
         JsonObject obj = new JsonObject();
         obj.addProperty("name", "동탁");
         obj.addProperty("regNo", "921108-1582816");
@@ -74,7 +74,8 @@ public class ScrapUtils {
                 .replace(",", "");
 
 
-        return new UpdateTaxRequestDto(totalIncome.subtract(nationalPensionTotal).subtract(cardTotal), new BigDecimal(taxCredit));
+        return new ScrapResponseDto(totalIncome,nationalPensionTotal.add(cardTotal),new BigDecimal(taxCredit));
+//        return new UpdateTaxRequestDto(totalIncome.subtract(nationalPensionTotal).subtract(cardTotal), new BigDecimal(taxCredit));
     }
 
 }

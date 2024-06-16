@@ -25,7 +25,7 @@ public class MemberDetails extends User {
         this(
                 userId,
                 password,
-                List.of(new SimpleGrantedAuthority("ROLE_"))
+                List.of(new SimpleGrantedAuthority("USER"))
         );
     }
 

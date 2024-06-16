@@ -8,6 +8,7 @@ import com.szs.domain.member.dto.response.GetRefundResponseDto;
 import com.szs.domain.member.service.MemberService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.BDDMockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -16,6 +17,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.mockito.ArgumentMatchers.refEq;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -47,15 +49,16 @@ public class MemberControllerTest {
         Gson gson = new Gson();
         String content = gson.toJson(signUpRequestDto);
 
-        given(memberService.signUp(signUpRequestDto)).willReturn(userId);
+        BDDMockito.given(memberService.signUp(signUpRequestDto)).willReturn(userId);
 
         mockMvc.perform(post("/szs/signup")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(content)
-                .with(csrf())
-        ).andExpect(status().isOk());
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(content)
+                        .with(csrf())
+                )
+                .andExpect(status().isOk());
 
-        verify(memberService).signUp(signUpRequestDto);
+        verify(memberService).signUp(refEq(signUpRequestDto));
     }
 
     @Test

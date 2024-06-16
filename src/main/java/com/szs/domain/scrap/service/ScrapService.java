@@ -1,7 +1,7 @@
 package com.szs.domain.scrap.service;
 
-import com.szs.domain.member.dto.response.UpdateTaxRequestDto;
 import com.szs.domain.member.service.MemberService;
+import com.szs.domain.scrap.ScrapResponseDto;
 import com.szs.utils.ScrapUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,8 +25,9 @@ public class ScrapService {
 
 
     @Transactional
-    public void scrap() throws IOException {
-        UpdateTaxRequestDto updateTaxRequestDto = scrapUtils.szsScrap();
-        memberService.updateTax(updateTaxRequestDto);
+    public ScrapResponseDto scrap() throws IOException {
+        ScrapResponseDto scrapResponseDto = scrapUtils.szsScrap();
+        memberService.updateTax(scrapResponseDto.toUpdateTaxRequestDto());
+        return scrapResponseDto;
     }
 }

@@ -80,7 +80,7 @@ public class MemberServiceTest {
     @Test
     @DisplayName("세금 업데이트시 회원이 없는경우 Exception")
     void given_InvalidMember_when_UpdateTax_then_Exception() {
-        UpdateTaxRequestDto updateTaxRequestDto = new UpdateTaxRequestDto(BigDecimal.TEN, BigDecimal.TEN);
+        UpdateTaxRequestDto updateTaxRequestDto = new UpdateTaxRequestDto(BigDecimal.TEN, BigDecimal.TEN,BigDecimal.TEN);
         given(memberRepository.findById(any())).willThrow(MemberNotExistException.class);
 
         Assertions.assertThrows(MemberNotExistException.class, () -> {

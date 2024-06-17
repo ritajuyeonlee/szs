@@ -13,12 +13,51 @@ public class MemberTest {
 
 
     @Test
-    @DisplayName("필수 값이 Blank일 경우")
-    void given_Blank_when_CreateValue_then_ThrowException() {
+    @DisplayName("userId 값이 Blank일 경우")
+    void given_BlankUserId_when_CreateValue_then_ThrowException() {
         String userId = " ";
+        String password = "password";
+        String name = "동탁";
+        String regNo = "303030-303030";
+
+        Assertions.assertThrows(RequiredInformationBlankException.class, () -> {
+            Member.of(userId, password, name, regNo);
+        });
+    }
+
+    @Test
+    @DisplayName("passworkd 값이 Blank일 경우")
+    void given_BlankPassword_when_CreateValue_then_ThrowException() {
+        String userId = "dh34";
         String password = " ";
-        String name = " ";
-        String regNo = " ";
+        String name = "동탁";
+        String regNo = "303030-303030";
+
+        Assertions.assertThrows(RequiredInformationBlankException.class, () -> {
+            Member.of(userId, password, name, regNo);
+        });
+    }
+
+    @Test
+    @DisplayName("name 값이 Blank일 경우")
+    void given_BlankName_when_CreateValue_then_ThrowException() {
+        String userId = "dh34";
+         String password = "123456";
+         String name = " ";
+         String regNo = "303030-303030";
+
+        Assertions.assertThrows(RequiredInformationBlankException.class, () -> {
+            Member.of(userId, password, name, regNo);
+        });
+    }
+
+    @Test
+    @DisplayName("regNo 값이 Blank일 경우")
+    void given_BlankRegNo_when_CreateValue_then_ThrowException() {
+        String userId = "dh34";
+         String password = "123456";
+         String name = "동탁";
+         String regNo = " ";
 
         Assertions.assertThrows(RequiredInformationBlankException.class, () -> {
             Member.of(userId, password, name, regNo);

@@ -1,6 +1,6 @@
 package com.szs.unit.domain;
 
-import com.szs.domain.member.Member;
+import com.szs.domain.member.entity.Member;
 import com.szs.exception.InvalidInformationException;
 import com.szs.exception.RequiredInformationBlankException;
 import org.junit.jupiter.api.Assertions;

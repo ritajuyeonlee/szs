@@ -35,7 +35,7 @@ public class ScrapControllerTest {
         mockMvc.perform(post("/szs/scrap")
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(csrf())
-        ).andExpect(status().isOk());
+        ).andExpect(status().isCreated());
 
         verify(scrapService).scrap();
     }

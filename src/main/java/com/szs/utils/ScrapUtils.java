@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.szs.config.ScrapConfig;
 import com.szs.domain.scrap.dto.ScrapResponseDto;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -13,23 +14,24 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Set;
 
+import static com.szs.utils.FormatUtils.removeSeparatorString;
+
 @Component
 public class ScrapUtils {
 
     public ScrapResponseDto szsScrap() throws IOException {
-        JsonObject obj = new JsonObject();
-        obj.addProperty("name", "동탁");
-        obj.addProperty("regNo", "921108-1582816");
+        JsonObject requestJsonObject = new JsonObject();
+        requestJsonObject.addProperty("name", "동탁");
+        requestJsonObject.addProperty("regNo", "921108-1582816");
 
-        Connection.Response response = Jsoup.connect("https://codetest-v4.3o3.co.kr/scrap")
-                .requestBody(obj.toString())
-                .header("X-API-KEY", "aXC8zK6puHIf9l53L8TiQg==")
+        Connection.Response response = Jsoup.connect(ScrapConfig.url)
+                .requestBody(requestJsonObject.toString())
+                .header("X-API-KEY", ScrapConfig.key)
                 .header("Content-Type", "application/json")
                 .ignoreContentType(true)
-                .timeout(300000)
+                .timeout(ScrapConfig.timeOut)
                 .method(Connection.Method.POST)
                 .execute();
-
 
         JsonObject jsonObject = new Gson().fromJson(response.body(), JsonObject.class).get("data").getAsJsonObject();
 
@@ -43,11 +45,9 @@ public class ScrapUtils {
                 .getAsJsonArray();
 
         for (JsonElement it : nationalPensionArray) {
-            BigDecimal bigdecimal = new BigDecimal(it.getAsJsonObject().get("공제액").getAsString().replace(",", ""));
+            BigDecimal bigdecimal = new BigDecimal(removeSeparatorString(it.getAsJsonObject().get("공제액").getAsString()));
             nationalPensionTotal = nationalPensionTotal.add(bigdecimal);
         }
-
-
 
         BigDecimal cardTotal = BigDecimal.ZERO;
         JsonArray cardArray = jsonObject
@@ -62,19 +62,18 @@ public class ScrapUtils {
             Set<String> keys = it.getAsJsonObject().keySet();
 
             String key = keys.toArray(String[]::new)[0];
-            BigDecimal bigdecimal = new BigDecimal(it.getAsJsonObject().get(key).getAsString().replace(",", ""));
+            BigDecimal bigdecimal = new BigDecimal(removeSeparatorString(it.getAsJsonObject().get(key).getAsString()));
             cardTotal = cardTotal.add(bigdecimal);
         }
 
-        String taxCredit = jsonObject
+        String taxCredit = removeSeparatorString(jsonObject
                 .get("소득공제")
                 .getAsJsonObject()
                 .get("세액공제")
-                .getAsString()
-                .replace(",", "");
+                .getAsString());
 
 
-        return new ScrapResponseDto(totalIncome,nationalPensionTotal.add(cardTotal),new BigDecimal(taxCredit));
+        return new ScrapResponseDto(totalIncome, nationalPensionTotal.add(cardTotal), new BigDecimal(taxCredit));
     }
 
 }

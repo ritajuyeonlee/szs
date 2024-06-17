@@ -33,4 +33,10 @@ springdoc:
 
 token:
   secret: open
-  accessTokenExpiredIn: 99999999999
+  accessTokenExpiredIn: 999999999
+
+
+scrap:
+  url: https://codetest-v4.3o3.co.kr/scrap
+  key: aXC8zK6puHIf9l53L8TiQg==
+  timeOut: 300000

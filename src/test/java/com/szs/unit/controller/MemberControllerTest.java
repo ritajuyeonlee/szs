@@ -23,6 +23,7 @@ import static org.mockito.Mockito.verify;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
@@ -56,7 +57,7 @@ public class MemberControllerTest {
                         .content(content)
                         .with(csrf())
                 )
-                .andExpect(status().isOk());
+                .andExpect(status().isCreated());
 
         verify(memberService).signUp(refEq(signUpRequestDto));
     }
@@ -70,10 +71,10 @@ public class MemberControllerTest {
         given(memberService.getRefund()).willReturn(getRefundResponseDto);
 
         mockMvc.perform(get("/szs/refund")
-                .contentType(MediaType.APPLICATION_JSON)
-                .with(csrf())
-        ).andExpect(status().isOk());
+                        .contentType(MediaType.APPLICATION_JSON)
+                ).andExpect(status().isOk())
+                .andExpect(jsonPath("$.결정세액").value(getRefundResponseDto.getRefund()));
 
-        verify(memberService).getRefund();
+
     }
 }

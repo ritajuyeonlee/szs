@@ -1,6 +1,6 @@
 package com.szs.domain.member.dto.request;
 
-import com.szs.domain.member.Member;
+import com.szs.domain.member.entity.Member;
 
 public class SignUpRequestDto {
     private String userId;
@@ -8,7 +8,8 @@ public class SignUpRequestDto {
     private String name;
     private String regNo;
 
-    public SignUpRequestDto(){}
+    public SignUpRequestDto() {
+    }
 
     public SignUpRequestDto(String userId, String password, String name, String regNo) {
         this.userId = userId;
@@ -32,7 +33,6 @@ public class SignUpRequestDto {
     public String getUserId() {
         return userId;
     }
-
 
 
     public Member toEntity() {

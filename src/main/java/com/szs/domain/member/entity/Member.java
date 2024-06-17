@@ -1,17 +1,18 @@
-package com.szs.domain.member;
+package com.szs.domain.member.entity;
 
 import com.szs.domain.authentication.dto.MemberDetails;
 import com.szs.domain.member.dto.response.UpdateTaxRequestDto;
+import com.szs.domain.member.entity.value.Tax;
 import com.szs.exception.InvalidInformationException;
 import com.szs.exception.RequiredInformationBlankException;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import org.hibernate.annotations.Comment;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
+import java.text.DecimalFormat;
 
 
 @Entity
@@ -29,11 +30,8 @@ public class Member {
     @Comment(value = "주민등록번호")
     private String regNo;
 
-    @Comment(value = "과세표준")
-    private BigDecimal taxBase;
-
-    @Comment(value = "세액공제")
-    private BigDecimal taxCredit;
+    @Embedded
+    private Tax tax;
 
 
     public Member() {
@@ -64,44 +62,6 @@ public class Member {
         return new MemberDetails(userId, password);
 
     }
-
-    private BigDecimal tax(Double min, Double percent, Double additional) {
-        return taxBase
-                .subtract(BigDecimal.valueOf(min))
-                .multiply(BigDecimal.valueOf(percent))
-                .add(BigDecimal.valueOf(additional))
-                .subtract(taxCredit)
-                .setScale(0, RoundingMode.HALF_UP)
-                ;
-
-    }
-
-    public BigDecimal getRefund() {
-        if (taxBase.compareTo(BigDecimal.valueOf(140000)) <= 0) {
-            return taxBase.multiply(BigDecimal.valueOf(0.06)).subtract(taxCredit);
-        } else if (taxBase.compareTo(BigDecimal.valueOf(14000000)) > 0 && taxBase.compareTo(BigDecimal.valueOf(50000000)) <= 0) {
-            return tax(14000000.0, 0.15, 840000.0);
-
-        } else if (taxBase.compareTo(BigDecimal.valueOf(50000000)) > 0 && taxBase.compareTo(BigDecimal.valueOf(88000000)) <= 0) {
-            return tax(50000000.0, 0.24, 6240000.0);
-
-        } else if (taxBase.compareTo(BigDecimal.valueOf(88000000)) > 0 && taxBase.compareTo(BigDecimal.valueOf(150000000)) <= 0) {
-            return tax(88000000.0, 0.35, 15360000.0);
-
-        } else if (taxBase.compareTo(BigDecimal.valueOf(150000000)) > 0 && taxBase.compareTo(BigDecimal.valueOf(300000000)) <= 0) {
-            return tax(150000000.0, 0.38, 37060000.0);
-
-        } else if (taxBase.compareTo(BigDecimal.valueOf(300000000)) > 0 && taxBase.compareTo(BigDecimal.valueOf(500000000)) <= 0) {
-            return tax(300000000.0, 0.4, 94060000.0);
-
-        } else if (taxBase.compareTo(BigDecimal.valueOf(500000000)) > 0 && taxBase.compareTo(BigDecimal.valueOf(1000000000)) <= 0) {
-            return tax(500000000.0, 0.42, 174060000.0);
-
-        } else {
-            return tax(1000000000.0, 0.45, 384060000.0);
-        }
-    }
-
 
     public Member(String userId, String password, String name, String regNo) {
         this.userId = userId;
@@ -137,8 +97,12 @@ public class Member {
 
 
     public void updateTax(UpdateTaxRequestDto updateTaxRequestDto) {
-        this.taxBase = updateTaxRequestDto.taxBase();
-        this.taxCredit = updateTaxRequestDto.taxCredit();
+        this.tax = updateTaxRequestDto.toValue();
+    }
+
+    public String getRefund() {
+        DecimalFormat format = new DecimalFormat("###,###");
+        return format.format(tax != null ? tax.getRefund() : null);
     }
 }
 

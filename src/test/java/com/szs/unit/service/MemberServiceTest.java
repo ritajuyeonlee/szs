@@ -1,13 +1,12 @@
 package com.szs.unit.service;
 
 import com.szs.domain.authentication.dto.MemberDetails;
-import com.szs.domain.member.Member;
-import com.szs.domain.member.MemberRepository;
 import com.szs.domain.member.dto.request.SignUpRequestDto;
 import com.szs.domain.member.dto.response.UpdateTaxRequestDto;
+import com.szs.domain.member.entity.Member;
+import com.szs.domain.member.repository.MemberRepository;
 import com.szs.domain.member.service.MemberService;
 import com.szs.exception.MemberNotExistException;
-import com.szs.utils.FormatUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -46,8 +45,6 @@ public class MemberServiceTest {
     @Mock
     PasswordEncoder passwordEncoder;
 
-    @Mock
-    FormatUtils formatUtils;
 
     @InjectMocks
     private MemberService memberService;

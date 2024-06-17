@@ -6,7 +6,7 @@ import com.szs.domain.member.dto.response.GetRefundResponseDto;
 import com.szs.domain.member.service.MemberService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -23,18 +23,16 @@ public class MemberController {
 
     @PostMapping("/signup")
     @Operation(summary = "회원가입", description = "회원가입 API")
-    public ResponseEntity<String> signUp(@RequestBody SignUpRequestDto signUpRequestDto) {
-        return ResponseEntity.ok(memberService.signUp(signUpRequestDto));
+    @ResponseStatus(HttpStatus.CREATED)
+    public String signUp(@RequestBody SignUpRequestDto signUpRequestDto) {
+        return memberService.signUp(signUpRequestDto);
     }
 
 
     @GetMapping("/refund")
     @Operation(summary = "결정세액조회", description = "결정세액조회 API")
-    public ResponseEntity<GetRefundResponseDto> getRefund() {
-        return ResponseEntity.ok(memberService.getRefund());
+    @ResponseStatus(HttpStatus.OK)
+    public GetRefundResponseDto getRefund() {
+        return memberService.getRefund();
     }
-
-
-
-
 }

@@ -7,6 +7,6 @@ import java.math.BigDecimal;
 public record ScrapResponseDto(BigDecimal totalIncome, BigDecimal deduction, BigDecimal taxCredit) {
 
     public UpdateTaxRequestDto toUpdateTaxRequestDto() {
-        return new UpdateTaxRequestDto(totalIncome.subtract(deduction), taxCredit);
+        return new UpdateTaxRequestDto(totalIncome, deduction, taxCredit);
     }
 }

@@ -39,6 +39,8 @@ public class MemberService {
     }
 
 
+    // @Transactional(readOnly = true) 를 추가 혹은 service 최상단에 @Transactional(readOnly = true) 추가 후 rw 가 필요한경우
+    // 메소드별로 아래처럼 하는게 좋아보여요
     public GetRefundResponseDto getRefund() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Member member = memberRepository.findById(authentication.getName()).orElseThrow(MemberNotExistException::new);

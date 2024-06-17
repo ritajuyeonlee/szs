@@ -16,17 +16,19 @@ import java.util.Set;
 @Component
 public class ScrapUtils {
 
+    // throw 하는거보다 오류 자체를 해당 util에서 처리 하는게 좋아보여요
+    // 오류를 처리 하고 정의되어있는 commonError로 throw 한다던지?
     public ScrapResponseDto szsScrap() throws IOException {
-        JsonObject obj = new JsonObject();
+        JsonObject obj = new JsonObject(); // 변수명을 obj 보단 jsonObject 로 해주는게 좋을거 같아요
         obj.addProperty("name", "동탁");
         obj.addProperty("regNo", "921108-1582816");
 
         Connection.Response response = Jsoup.connect("https://codetest-v4.3o3.co.kr/scrap")
                 .requestBody(obj.toString())
-                .header("X-API-KEY", "aXC8zK6puHIf9l53L8TiQg==")
+                .header("X-API-KEY", "aXC8zK6puHIf9l53L8TiQg==") // key는 yaml로 별도 관리하는게 좋아 보여요
                 .header("Content-Type", "application/json")
                 .ignoreContentType(true)
-                .timeout(300000)
+                .timeout(300000) // 요거도 yaml로 관리
                 .method(Connection.Method.POST)
                 .execute();
 
@@ -36,6 +38,8 @@ public class ScrapUtils {
         BigDecimal totalIncome = jsonObject.get("종합소득금액").getAsBigDecimal();
 
         BigDecimal nationalPensionTotal = BigDecimal.ZERO;
+        // 소득공제, 국민염금, 신용카드속득공제 month 데이터들은 데이터를 꺼내서 계산 하는 로직이 반복되고 있는거 같아요 요거 메소드로 분리 가능할듯?
+        // 매개변수로 소득공제,국민연금 같은 값들을 받아서 계산하도록 분리 가능해보여요
         JsonArray nationalPensionArray = jsonObject
                 .get("소득공제")
                 .getAsJsonObject()

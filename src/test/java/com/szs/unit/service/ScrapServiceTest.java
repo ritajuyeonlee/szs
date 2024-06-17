@@ -42,6 +42,7 @@ public class ScrapServiceTest {
         ScrapResponseDto result = scrapService.scrap();
 
         assertThat(result).isEqualTo(szsScrapResponseDto);
+        // 테스트의 결과 체크가 미흡한거 같아요
     }
 
 
